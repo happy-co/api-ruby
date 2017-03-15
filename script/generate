@@ -1,0 +1,14 @@
+rm -rf lib
+mkdir -p lib
+PROTO_FILES=`find proto -name '*.proto'`
+grpc_tools_ruby_protoc -I proto --ruby_out=lib --grpc_out=lib $PROTO_FILES
+
+RB_FILES=`find lib -name '*.rb'`
+for f in $RB_FILES
+do
+  touch lib/happyco.rb
+  f=${f#lib/}
+  f=${f%.rb}
+  echo "require '${f}'" >> lib/happyco.rb
+done
+

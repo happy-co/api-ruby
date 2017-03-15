@@ -1,2 +1,4 @@
-# api-ruby
-Generated ruby client for HappyCo API
+# HappyCo
+Generated ruby client for HappyCo API.
+
+
