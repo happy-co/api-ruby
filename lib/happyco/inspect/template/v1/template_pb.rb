@@ -7,6 +7,7 @@ require 'happyco/type/v1/integration_id_pb'
 require 'happyco/type/v1/paging_pb'
 require 'happyco/type/v1/varia_pb'
 require 'happyco/inspect/type/v1/inspect_type_pb'
+require 'google/api/annotations_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_message "happyco.inspect.template.v1.Template" do
     optional :id, :message, 1, "happyco.type.v1.IntegrationID"

@@ -1,7 +1,8 @@
 rm -rf lib
 mkdir -p lib
-PROTO_FILES=`find proto -name '*.proto' | tr '\n' ' '`
-grpc_tools_ruby_protoc -I proto --ruby_out=lib --grpc_out=lib $PROTO_FILES
+PROTO_FILES=`find proto/happyco -name '*.proto' | tr '\n' ' '`
+imports="-Iproto/vendor/grpc-gateway/third_party/googleapis -Iproto/vendor/protobuf/src/ -Iproto"
+grpc_tools_ruby_protoc $imports --ruby_out=lib --grpc_out=lib $PROTO_FILES
 
 RB_FILES=`find lib -name '*.rb'`
 for f in $RB_FILES
@@ -11,4 +12,6 @@ do
   f=${f%.rb}
   echo "require '${f}'" >> lib/happyco.rb
 done
+
+gem build happyco.gemspec
 

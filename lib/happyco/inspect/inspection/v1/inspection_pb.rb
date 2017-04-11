@@ -8,7 +8,47 @@ require 'happyco/type/v1/date_pb'
 require 'happyco/type/v1/paging_pb'
 require 'happyco/type/v1/event_pb'
 require 'happyco/inspect/type/v1/inspect_type_pb'
+require 'google/api/annotations_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
+  add_message "happyco.inspect.inspection.v1.CreateDelegatedInspectionLinksRequest" do
+    optional :account_id, :message, 1, "happyco.type.v1.IntegrationID"
+    repeated :requests, :message, 2, "happyco.inspect.inspection.v1.CreateDelegatedInspectionLinkRequest"
+    optional :send_email, :bool, 3
+    optional :email_subject_template, :string, 4
+    optional :email_template_html, :string, 5
+    optional :email_template_text, :string, 6
+  end
+  add_message "happyco.inspect.inspection.v1.CreateDelegatedInspectionLinkRequest" do
+    optional :email, :string, 1
+    optional :first_name, :string, 2
+    optional :last_name, :string, 3
+    optional :inspection_id, :message, 4, "happyco.type.v1.IntegrationID"
+    optional :expiry, :message, 5, "happyco.type.v1.DateTime"
+  end
+  add_message "happyco.inspect.inspection.v1.CreateDelegatedInspectionLinksResponse" do
+    repeated :responses, :message, 1, "happyco.inspect.inspection.v1.CreateDelegatedInspectionLinkResponse"
+  end
+  add_message "happyco.inspect.inspection.v1.CreateDelegatedInspectionLinkResponse" do
+    optional :link, :string, 1
+    optional :error, :string, 2
+  end
+  add_message "happyco.inspect.inspection.v1.AddInspectionPhotosRequest" do
+    optional :account_id, :message, 1, "happyco.type.v1.IntegrationID"
+    repeated :requests, :message, 2, "happyco.inspect.inspection.v1.AddInspectionPhotoRequest"
+  end
+  add_message "happyco.inspect.inspection.v1.AddInspectionPhotoRequest" do
+    optional :folder_id, :message, 1, "happyco.type.v1.IntegrationID"
+    optional :inspection_id, :message, 2, "happyco.type.v1.IntegrationID"
+    optional :file_name, :string, 3
+    optional :data, :bytes, 4
+  end
+  add_message "happyco.inspect.inspection.v1.AddInspectionPhotosResponse" do
+    repeated :responses, :message, 1, "happyco.inspect.inspection.v1.AddInspectionPhotoResponse"
+  end
+  add_message "happyco.inspect.inspection.v1.AddInspectionPhotoResponse" do
+    optional :photo_id, :message, 1, "happyco.type.v1.IntegrationID"
+    optional :error, :string, 2
+  end
   add_message "happyco.inspect.inspection.v1.Inspection" do
     optional :id, :message, 1, "happyco.type.v1.IntegrationID"
     optional :account_id, :message, 2, "happyco.type.v1.IntegrationID"
@@ -23,16 +63,16 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     end
   end
   add_message "happyco.inspect.inspection.v1.ScheduledInspection" do
-    optional :schedule_date, :message, 1, "happyco.type.v1.Date"
+    optional :schedule_date, :message, 1, "happyco.type.v1.DateTime"
     repeated :header_fields, :message, 2, "happyco.inspect.type.v1.HeaderField"
     repeated :footer_fields, :message, 3, "happyco.inspect.type.v1.FooterField"
     repeated :sections, :message, 4, "happyco.inspect.type.v1.Section"
   end
   add_message "happyco.inspect.inspection.v1.InspectionData" do
-    optional :started_at, :message, 1, "happyco.type.v1.Date"
-    optional :ended_at, :message, 2, "happyco.type.v1.Date"
-    optional :user_started_at, :message, 3, "happyco.type.v1.Date"
-    optional :user_ended_at, :message, 4, "happyco.type.v1.Date"
+    optional :started_at, :message, 1, "happyco.type.v1.DateTime"
+    optional :ended_at, :message, 2, "happyco.type.v1.DateTime"
+    optional :user_started_at, :message, 3, "happyco.type.v1.DateTime"
+    optional :user_ended_at, :message, 4, "happyco.type.v1.DateTime"
     repeated :header_fields, :message, 7, "happyco.inspect.type.v1.HeaderField"
     repeated :sections, :message, 6, "happyco.inspect.type.v1.Section"
     repeated :footer_fields, :message, 8, "happyco.inspect.type.v1.FooterField"
@@ -99,6 +139,14 @@ module Happyco
   module Inspect
     module Inspection
       module V1
+        CreateDelegatedInspectionLinksRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("happyco.inspect.inspection.v1.CreateDelegatedInspectionLinksRequest").msgclass
+        CreateDelegatedInspectionLinkRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("happyco.inspect.inspection.v1.CreateDelegatedInspectionLinkRequest").msgclass
+        CreateDelegatedInspectionLinksResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("happyco.inspect.inspection.v1.CreateDelegatedInspectionLinksResponse").msgclass
+        CreateDelegatedInspectionLinkResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("happyco.inspect.inspection.v1.CreateDelegatedInspectionLinkResponse").msgclass
+        AddInspectionPhotosRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("happyco.inspect.inspection.v1.AddInspectionPhotosRequest").msgclass
+        AddInspectionPhotoRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("happyco.inspect.inspection.v1.AddInspectionPhotoRequest").msgclass
+        AddInspectionPhotosResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("happyco.inspect.inspection.v1.AddInspectionPhotosResponse").msgclass
+        AddInspectionPhotoResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("happyco.inspect.inspection.v1.AddInspectionPhotoResponse").msgclass
         Inspection = Google::Protobuf::DescriptorPool.generated_pool.lookup("happyco.inspect.inspection.v1.Inspection").msgclass
         ScheduledInspection = Google::Protobuf::DescriptorPool.generated_pool.lookup("happyco.inspect.inspection.v1.ScheduledInspection").msgclass
         InspectionData = Google::Protobuf::DescriptorPool.generated_pool.lookup("happyco.inspect.inspection.v1.InspectionData").msgclass

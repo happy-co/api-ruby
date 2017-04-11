@@ -38,6 +38,12 @@ module Happyco
             # * Unarchive inspections should be used if previously archived
             # inspections need to be restored.
             rpc :UnarchiveInspections, SetInspectionsArchivedRequest, SetInspectionsArchivedResponse
+            # * Adds photos to inspections. The returned photo IDs must be inserted
+            # into the inspection for them to be displayed. This inspection does
+            # not occur in a transaction and you will receive a response for each
+            # photo. 
+            rpc :AddInspectionPhotos, AddInspectionPhotosRequest, AddInspectionPhotosResponse
+            rpc :CreateDelegatedInspectionLinks, CreateDelegatedInspectionLinksRequest, CreateDelegatedInspectionLinksResponse
           end
 
           Stub = Service.rpc_stub_class

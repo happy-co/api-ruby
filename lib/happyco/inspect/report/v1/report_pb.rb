@@ -7,6 +7,7 @@ require 'happyco/type/v1/integration_id_pb'
 require 'happyco/type/v1/date_pb'
 require 'happyco/type/v1/paging_pb'
 require 'happyco/type/v1/event_pb'
+require 'google/api/annotations_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_message "happyco.inspect.report.v1.Report" do
     optional :id, :message, 1, "happyco.type.v1.IntegrationID"

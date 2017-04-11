@@ -4,6 +4,7 @@
 require 'google/protobuf'
 
 require 'happyco/type/v1/varia_pb'
+require 'happyco/type/v1/integration_id_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_message "happyco.inspect.type.v1.HeaderField" do
     optional :label, :string, 1
@@ -18,10 +19,14 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     optional :name, :string, 1
     optional :notes, :string, 2
     optional :info, :string, 3
-    repeated :photo_urls, :string, 4
+    repeated :photos, :message, 8, "happyco.inspect.type.v1.Photo"
     optional :rating_group_key, :string, 5
     map :values, :string, :message, 6, "happyco.inspect.type.v1.RatingValues"
     map :scores, :string, :message, 7, "happyco.type.v1.FloatArray"
+  end
+  add_message "happyco.inspect.type.v1.Photo" do
+    optional :id, :message, 1, "happyco.type.v1.IntegrationID"
+    optional :url, :string, 2
   end
   add_message "happyco.inspect.type.v1.FooterField" do
     optional :label, :string, 1
@@ -44,7 +49,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     optional :label, :string, 1
     optional :value, :string, 2
     optional :score, :float, 3
-    optional :color, :enum, 4, "happyco.inspect.type.v1.RatingColor"
+    optional :color, :string, 4
     optional :image, :enum, 5, "happyco.inspect.type.v1.RatingImage"
   end
   add_message "happyco.inspect.type.v1.RatingRadioGroup" do
@@ -54,7 +59,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
   add_message "happyco.inspect.type.v1.RatingRadioGroupOption" do
     optional :value, :string, 2
     optional :score, :float, 3
-    optional :color, :enum, 4, "happyco.inspect.type.v1.RatingColor"
+    optional :color, :string, 4
     optional :image, :enum, 5, "happyco.inspect.type.v1.RatingImage"
   end
   add_message "happyco.inspect.type.v1.RatingDropDown" do
@@ -65,7 +70,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     optional :label, :string, 1
     optional :value, :string, 2
     optional :score, :float, 3
-    optional :color, :enum, 4, "happyco.inspect.type.v1.RatingColor"
+    optional :color, :string, 4
     optional :image, :enum, 5, "happyco.inspect.type.v1.RatingImage"
   end
   add_message "happyco.inspect.type.v1.RatingValues" do
@@ -73,17 +78,6 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :scalar, :string, 1
       optional :array, :message, 2, "happyco.type.v1.StringArray"
     end
-  end
-  add_enum "happyco.inspect.type.v1.RatingColor" do
-    value :UNKNOWN, 0
-    value :RED, 1
-    value :ORANGE, 2
-    value :YELLOW, 3
-    value :GREEN, 4
-    value :LIGHT_BLUE, 5
-    value :DARK_BLUE, 6
-    value :PURPLE, 7
-    value :PINK, 8
   end
   add_enum "happyco.inspect.type.v1.RatingImage" do
     value :UNDEFINED, 0
@@ -214,6 +208,7 @@ module Happyco
         HeaderField = Google::Protobuf::DescriptorPool.generated_pool.lookup("happyco.inspect.type.v1.HeaderField").msgclass
         Section = Google::Protobuf::DescriptorPool.generated_pool.lookup("happyco.inspect.type.v1.Section").msgclass
         Item = Google::Protobuf::DescriptorPool.generated_pool.lookup("happyco.inspect.type.v1.Item").msgclass
+        Photo = Google::Protobuf::DescriptorPool.generated_pool.lookup("happyco.inspect.type.v1.Photo").msgclass
         FooterField = Google::Protobuf::DescriptorPool.generated_pool.lookup("happyco.inspect.type.v1.FooterField").msgclass
         RatingGroups = Google::Protobuf::DescriptorPool.generated_pool.lookup("happyco.inspect.type.v1.RatingGroups").msgclass
         RatingControl = Google::Protobuf::DescriptorPool.generated_pool.lookup("happyco.inspect.type.v1.RatingControl").msgclass
@@ -223,7 +218,6 @@ module Happyco
         RatingDropDown = Google::Protobuf::DescriptorPool.generated_pool.lookup("happyco.inspect.type.v1.RatingDropDown").msgclass
         RatingDropDownOption = Google::Protobuf::DescriptorPool.generated_pool.lookup("happyco.inspect.type.v1.RatingDropDownOption").msgclass
         RatingValues = Google::Protobuf::DescriptorPool.generated_pool.lookup("happyco.inspect.type.v1.RatingValues").msgclass
-        RatingColor = Google::Protobuf::DescriptorPool.generated_pool.lookup("happyco.inspect.type.v1.RatingColor").enummodule
         RatingImage = Google::Protobuf::DescriptorPool.generated_pool.lookup("happyco.inspect.type.v1.RatingImage").enummodule
       end
     end

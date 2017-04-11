@@ -5,6 +5,7 @@ require 'google/protobuf'
 
 require 'happyco/manage/account/v1/account_pb'
 require 'happyco/type/v1/integration_id_pb'
+require 'google/api/annotations_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_message "happyco.manage.account_provisioning.v1.CreateAccountsRequest" do
     repeated :account_with_admins, :message, 1, "happyco.manage.account_provisioning.v1.CreateAccountsRequest.AccountWithAdmin"

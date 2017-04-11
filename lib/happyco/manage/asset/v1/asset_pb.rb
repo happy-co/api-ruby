@@ -5,6 +5,7 @@ require 'google/protobuf'
 
 require 'happyco/type/v1/integration_id_pb'
 require 'happyco/type/v1/paging_pb'
+require 'google/api/annotations_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_message "happyco.manage.asset.v1.Asset" do
     optional :id, :message, 1, "happyco.type.v1.IntegrationID"
